@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
     var connectionString = secrets.token;
     res.json({ message: 'My connection string is ' + connectionString });
 });
-// router.use('/users', require('./users.js'));
+router.use('/users', require('./users.js'));
 router.use('/recipes', require('./recipes.js'));
 
 
