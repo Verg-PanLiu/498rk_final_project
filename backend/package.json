@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for cs498rk final",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.1",
+    "mongoose": "^6.1.1",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^5.4.18",
+    "nodemon": "^1.11.0"},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Hongyi Liu",
+  "license": "ISC"
+}
