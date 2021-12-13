@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b44fe95-dbe0-48fa-80f5-d8d15dbb5288" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/config/secrets.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/dummy_data/recipe.csv" beforeDir="false" afterPath="$PROJECT_DIR$/backend/dummy_data/recipe.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +21,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend/routes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -45,6 +43,7 @@
       <option name="presentableId" value="Default" />
       <updated>1639416156993</updated>
       <workItem from="1639416158376" duration="2191000" />
+      <workItem from="1639435755140" duration="10000" />
     </task>
     <servers />
   </component>
@@ -61,5 +60,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

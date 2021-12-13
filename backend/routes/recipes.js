@@ -52,12 +52,13 @@ router.get('/', function (req, res) {
 router.post('/', async function (req, res) {
     // return res.send({router:"tasks", route:req.route});
     const params = req.body;
+    console.log("recipe POST params:", params);
     let message, data = null;
     // asks cannot be created (or updated) without a name or a deadline.
     // All other fields that the user did not specify should be set to reasonable values.
     if(params.RecipeID == null){
         res.status(400);
-        message = 'Missing task name or deadline';
+        message = 'Missing recipe ID';
     }else{
         const newRecipe = new Recipe(params);
 
