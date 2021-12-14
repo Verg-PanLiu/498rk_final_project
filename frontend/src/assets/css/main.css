@@ -800,3 +800,39 @@ form > *:last-child {
   color: var(--primary-500);
   text-transform: capitalize;
 }
+
+.searchbar {
+  width: 100%;
+  height: 100px;
+  background: #edf4ff;
+  position: relative;
+  padding: 25px 20px 0px 20px;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+}
+
+.searchbar-content {
+  max-width: 1280px;
+  width: 80%;
+  height: 55px;
+  background: rgba(250, 250, 252, 0.89);
+  margin: 0 auto;
+  border-radius: 25px;
+  position: relative;
+}
+
+.searchbar-input {
+  font-family: 'Abel', sans-serif;
+  font-size: 30px;
+  position: relative;
+  margin: 8px 0 0 60px;
+  border: 0;
+  background: transparent;
+  height: 40px;
+  width: 90%;
+  color: #798db0;
+}
+
+.searchbar-input:focus {
+  outline: none;
+}

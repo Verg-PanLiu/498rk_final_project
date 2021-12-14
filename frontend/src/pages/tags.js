@@ -1,12 +1,24 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import Layout from "../components/Layout"
-import { graphql, Link } from "gatsby"
+import { Link } from "gatsby"
 import setupTags from "../utils/setupTags"
 import slugify from "slugify"
 import SEO from "../components/SEO"
 
-const Tags = ({ data }) => {
-  const newTags = setupTags(data.allContentfulRecipe.nodes)
+const Tags = () => {
+  let endpoint = "http://localhost:4000/api/recipes"
+  const [recipeList, setRecipeList] = useState([])
+
+  useEffect(() => {
+    fetch(endpoint)
+      .then(response => response.json()) // parse JSON from request
+      .then(resultData => {
+          setRecipeList(resultData.data)
+      })
+  }, [])
+
+  const newTags = setupTags(recipeList)
+
   return (
     <Layout>
       <SEO title="Tags" />
@@ -28,17 +40,4 @@ const Tags = ({ data }) => {
     </Layout>
   )
 }
-
-export const query = graphql`
-  {
-    allContentfulRecipe {
-      nodes {
-        content {
-          tags
-        }
-      }
-    }
-  }
-`
-
 export default Tags
