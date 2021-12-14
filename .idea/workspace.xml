@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b44fe95-dbe0-48fa-80f5-d8d15dbb5288" name="Changes" comment="" />
+    <list default="true" id="5b44fe95-dbe0-48fa-80f5-d8d15dbb5288" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +12,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="58495b87-8ffa-4cdd-888d-7572578aaa3a" />
   <component name="ProjectId" id="22EwfMY3baDunvDabgYZMFZ348x" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
