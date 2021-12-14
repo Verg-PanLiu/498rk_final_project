@@ -68,6 +68,8 @@ const Navbar = () => {
             tags
           </Link>
 
+          {login && <Link to="/addrecipe" className="nav-link" activeClassName="active-link" onClick={() => setShow(false)}> Add Recipes </Link>}
+
           {content}
         </div>
       </div>

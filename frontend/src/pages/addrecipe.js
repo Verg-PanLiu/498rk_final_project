@@ -1,61 +1,205 @@
 import React, {useState} from "react"
 import Layout from "../components/Layout"
-import { StaticImage } from "gatsby-plugin-image"
+import { graphql, Link } from "gatsby"
+import { GatsbyImage, getImage, StaticImage} from "gatsby-plugin-image"
+import { BsClockHistory, BsClock, BsPeople } from "react-icons/bs"
+
 import SEO from "../components/SEO"
+import axios from "axios";
 
 const Addrecipe = () => {
   const [instructionList, setInstructionList] = useState([""]);
-  const [ingridentList, setIngridentList] = useState([""]);
+  const [ingredientList, setIngredientList] = useState([""]);
+  const [categoryList, setCategoryList] = useState([""]);
   const [photo, setPhoto] = useState("");
+  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [prepTime, setPrepTime] = useState(0);
+  const [cookTime, setCookTime] = useState(0);
+  const [serving, setServing] = useState(0);
+  const [invalid, setInvalid] = useState(false);
 
-  const handleInstructionChange = (e, index) => {
+  const handleChange = (e, index, lst, setLst) => {
     const {name, value} = e.target;
-    const list = [...instructionList];
+    const list = [...lst];
     list[index] = value;
-    setInstructionList(list); 
+    setLst(list);
   };
 
-  const handleDelete = () => {
-    const list = [...instructionList];
+  const handleDelete = (lst, setLst) => {
+    const list = [...lst];
     list.splice(-1);
-    setInstructionList(list);
+    setLst(list);
   };
 
-  const handleAddClick = () => {
-    setInstructionList([...instructionList, ""]);
+  const handleAdd = (lst, setLst) => {
+    setLst([...lst, ""]);
   };
+  
+  // ************** Ingredients ***************
+  const handleIngredientChange = (e, index) => {
+    handleChange(e, index, ingredientList, setIngredientList);
+  };
+
+  const handleAddIngredient = () => {
+    handleAdd(ingredientList, setIngredientList);
+  };
+
+  const handleDeleteIngredient = () => {
+    handleDelete(ingredientList, setIngredientList);
+  };
+
+  // ************** Instructions ***************
+  const handleInstructionChange = (e, index) => {
+    handleChange(e, index, instructionList, setInstructionList);
+  };
+
+  const handleDeleteInstruction = () => {
+    handleDelete(instructionList, setInstructionList);
+  };
+
+  const handleAddInstruction = () => {
+    handleAdd(instructionList, setInstructionList);
+  };
+
+  // ************** Categories ***************
+  const handleCategoryChange = (e, index) => {
+    handleChange(e, index, categoryList, setCategoryList);
+  };
+
+  const handleDeleteCategory = () => {
+    handleDelete(categoryList, setCategoryList);
+  };
+
+  const handleAddCategory = () => {
+    handleAdd(categoryList, setCategoryList);
+  };
+
+  // ************** Upload ***************
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    let json = {
+      RecipeID: 1000,
+      RecipeName: title,
+      Description: description,
+      PhotoURL: photo,
+      recipeProcedure: instructionList,
+      Score: 100,
+      UserId: 100,
+      Ingredient: ingredientList,
+      Category: categoryList,
+      cookTime: cookTime,
+      prepTime: prepTime
+    };
+    axios.post("http://localhost:4000/api/recipes/", json)
+    .then((res) => {
+      window.location = "/";
+    })
+    .catch((error) => {
+      console.log(error);
+      setInvalid(true);
+    });
+  };
+
+  // error message
+  let errMsg = invalid ? "Recipe Submission Failure" : "";
 
   return (
     <Layout>
       <SEO title="Home " />
       <main className="page">
         <h1>Submit your recipe here</h1>
-        <form className="form contact-form recipe-form">
-          <div className="form-col">
-            <label htmlFor="photo" className="form-label">Photo</label>
-            <input name="photo" id="photo" type="file" className="form-input" />
-
-            <h3>Instruction</h3>
-
-            {instructionList.map((x, i) => {
-              return (
-                <div className="box">
-                  <label htmlFor={"step" + i}>Step {i + 1}</label>
-                  <input type="text" name={"step" + i} value={x} onChange={e => handleInstructionChange(e, i)} />
-                </div>
-              )
-            })}
-
-            <button type="button" onClick={handleAddClick}>
-              Add
-            </button>
-
-            {instructionList.length > 1 && <button type="button" onClick={handleDelete}>Delete</button>}
+        <form className="form contact-form recipe-form" onSubmit={handleSubmit}>
+          <div className="err-msg">
+            {errMsg}
           </div>
+          <section className="recipe-hero">
+            <input type="text" alt="image" name="photo" value={photo} onChange={e => setPhoto(e.target.value)} placeholder="place the image url here" required/>
+            <article className="recipe-info">
+              <h4><input type="text" name="title" value={title} onChange={e => setTitle(e.target.value)} placeholder="Recipe Name" required/></h4>
+              <textarea name="description" value={description} onChange={e => setDescription(e.target.value)} rows="4" cols="50" placeholder="Short Description of the recipe">
+              </textarea>
+              {/* icons */}
+              <div className="recipe-icons">
+                <article>
+                  <BsClock />
+                  <h5>prep time</h5>
+                  <input type="number" name="prepTime" value={prepTime} onChange={e => setPrepTime(e.target.value)} required/>
+                </article>
+                <article>
+                  <BsClockHistory />
+                  <h5>cook time</h5>
+                  <input type="number" name="cookTime" value={cookTime} onChange={e => setCookTime(e.target.value)} required/>
+                </article>
+                <article>
+                  <BsPeople />
+                  <h5>serving</h5>
+                  <input type="number" name="serving" value={serving} onChange={e => setServing(e.target.value)} required/>
+                </article>
+              </div>
+              {/* tags */}
+              Tags:
+              {categoryList.map((item, index) => {
+                return (
+                  <div key={index} className="single-tag">
+                    <input type="text" name={"tag" + index}  value={item} onChange={e => handleCategoryChange(e, index)} maxLength="8" size="10" required/>
+                  </div>
+                )
+              })}
+              {categoryList.length < 3 && <button type="button" onClick={handleAddCategory}>
+                  Add
+              </button>}
 
-          <div className="form-col">
+              {categoryList.length > 1 && <button type="button" onClick={handleDeleteCategory}>Delete</button>}
+            </article>
+          </section>
 
-          </div>
+          {/* rest of the content */}
+          <section className="recipe-content">
+            <article>
+              <h4>instructions</h4>
+              {instructionList.map((item, index) => {
+                return (
+                  <div key={index} className="single-instruction">
+                    <header>
+                      <p>step {index + 1}</p>
+                      <div></div>
+                    </header>
+                    <input type="text" name={"step" + index} value={item} onChange={e => handleInstructionChange(e, index)} required/>
+                  </div>
+                )
+              })}
+
+              <button type="button" onClick={handleAddInstruction}>
+                Add
+              </button>
+
+              {instructionList.length > 1 && <button type="button" onClick={handleDeleteInstruction}>Delete</button>}
+            </article>
+
+            <article className="second-column">
+              <div>
+                <h4>ingredients</h4>
+                {ingredientList.map((item, index) => {
+                  return (
+                    <p key={index} className="single-ingredient">
+                      <input type="text" name={"ingredient" + index} value={item} onChange={e => handleIngredientChange(e, index)} required/>
+                    </p>
+                  )
+                })}
+                <button type="button" onClick={handleAddIngredient}>
+                  Add
+                </button>
+                
+                {ingredientList.length > 1 && <button type="button" onClick={handleDeleteIngredient}>Delete</button>}
+              </div>
+            </article>
+          </section>
+
+          <button id="submit" type="submit" className="btn btn-block">
+            Submit
+          </button>
         </form>
       </main>
     </Layout>
