@@ -11,7 +11,8 @@ router.get('/', function (req, res) {
     console.log("GET params: ", params);
     // return res.send(params);
     /*
-    *   where	filter results based on JSON query
+    *   contains filter results with names containing search key
+        where	filter results based on JSON query
         sort	specify the order in which to sort each specified field (1- ascending; -1 - descending)
         select	specify the set of fields to include or exclude in each document (1 - include; 0 - exclude)
         skip	specify the number of results to skip in the result set; useful for pagination
@@ -19,6 +20,10 @@ router.get('/', function (req, res) {
         count	if set to true, return the count of documents that match the query (instead of the documents themselves)
     * */
     const query = Recipe.find();
+
+    if(params.contains){
+        query.find({RecipeName : { $regex: new RegExp(`${params.contains}`, 'i')}})
+    }
     if(params.where){
         query.where(JSON.parse(params.where));
     }
