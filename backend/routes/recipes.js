@@ -61,27 +61,35 @@ router.post('/', async function (req, res) {
     let message, data = null;
     // asks cannot be created (or updated) without a name or a deadline.
     // All other fields that the user did not specify should be set to reasonable values.
-    if(params.RecipeID == null){
-        res.status(400);
-        message = 'Missing recipe ID';
-    }else{
-        const newRecipe = new Recipe(params);
+    // if(params.RecipeID == null){
+    //     res.status(400);
+    //     message = 'Missing recipe ID';
+    // }else{
+    //     const newRecipe = new Recipe(params);
+    //
+    //     await newRecipe.save();
+    //     res.status(201);
+    //     message = 'New recipe created';
+    //     data = newRecipe.toJSON();
+    //     // console.log(newTask);
+    //
+    // }
 
-        await newRecipe.save();
-        res.status(201);
-        message = 'New recipe created';
-        data = newRecipe.toJSON();
-        // console.log(newTask);
+    const newRecipe = new Recipe(params);
 
-    }
+    await newRecipe.save();
+    res.status(201);
+    message = 'New recipe created';
+    data = newRecipe.toJSON();
+
     let resObj = {message: message}; if(data){resObj.data = data};
 
     res.json(resObj);
 });
 
-router.get('/:RecipeID', async function (req, res) {
+router.get('/:id', async function (req, res) {
     // return res.send({router:"users", route:req.route});
-    const recipeID = req.params.RecipeID;
+    const recipeID = req.params.id;
     let status = null, message = '', data = null;
     // const recipeFound = await Recipe.findById(recipeID,(err,result)=>{
     //     if(err){
@@ -104,7 +112,8 @@ router.get('/:RecipeID', async function (req, res) {
     // }
 
     try{
-        data = await Recipe.findOne({ RecipeID: recipeID });
+        // data = await Recipe.findOne({ RecipeID: recipeID });
+        data = await Recipe.findOne({ _id: recipeID });
         status = 200;
         message = 'OK';
         if (data == null){
@@ -122,13 +131,14 @@ router.get('/:RecipeID', async function (req, res) {
 });
 
 // Replaces a task with given id with another provided.
-router.put('/:RecipeID', async function (req, res) {
+router.put('/:id', async function (req, res) {
 
-    const recipeID = req.params.RecipeID, params = req.body;
+    const recipeID = req.params.id, params = req.body;
     let status = null, message = '', data = null, sent = false;
 
     try{
-        data = await Recipe.find({ RecipeID: recipeID });
+        // data = await Recipe.find({ RecipeID: recipeID });
+        data = await Recipe.find({ _id: recipeID });
         message = 'OK';
         if (data == null){
             status = 404;
@@ -140,25 +150,50 @@ router.put('/:RecipeID', async function (req, res) {
     }
 
     if(status == null){
-        if(params.RecipeID == null){
-            status = 400;
-            message = 'Missing recipe ID';
-            // res.send({message:message});
-        }else{
-            try{
-                await Recipe.findOneAndDelete({ RecipeID: recipeID})
-            } catch(err){
-                status = 500;
-                message = 'An error occurred during database query';
-            }
-            if(status == null){
-                const newRecipe = new Recipe(params);
-                await newRecipe.save();
-                status = 200;
-                message = 'Task replaced';
-                data = newRecipe.toJSON();
-            }
+        // if(params.RecipeID == null){
+        //     status = 400;
+        //     message = 'Missing recipe ID';
+        //     // res.send({message:message});
+        // }else{
+        //     try{
+        //         //await Recipe.findOneAndDelete({ RecipeID: recipeID})
+        //         data = await Recipe.findOneAndUpdate({ RecipeID: recipeID})
+        //
+        //     } catch(err){
+        //         status = 500;
+        //         message = 'An error occurred during database query';
+        //     }
+        //     if(status == null){
+        //         // const newRecipe = new Recipe(params);
+        //         // await newRecipe.save();
+        //         status = 200;
+        //         message = 'Recipe replaced';
+        //         // data = newRecipe.toJSON();
+        //     }
+        //
+        // }
 
+        try{
+            //await Recipe.findOneAndDelete({ RecipeID: recipeID})
+            console.log(params)
+            await Recipe.findOneAndUpdate({ _id: recipeID}, { $set: params})
+            // data = await Recipe.findById(recipeID);
+            // data.update({$set: params})
+            // console.log(params)
+            // console.log(data)
+            // await data.save();
+            data = await Recipe.findById(recipeID)
+
+        } catch(err){
+            status = 500;
+            message = 'An error occurred during database query';
+        }
+        if(status == null){
+            // const newRecipe = new Recipe(params);
+            // await newRecipe.save();
+            status = 200;
+            message = 'Recipe replaced';
+            // data = newRecipe.toJSON();
         }
     }
     res.status(status);
@@ -166,11 +201,11 @@ router.put('/:RecipeID', async function (req, res) {
     res.json(resObj);
 });
 
-router.delete('/:RecipeID', async function (req, res) {
+router.delete('/:id', async function (req, res) {
 
-    const recipeId = req.params.RecipeID, params = req.query;
+    const recipeId = req.params.id, params = req.query;
     let message = '';
-    Recipe.findOneAndDelete({RecipeID: recipeId},async (err,recipeFound)=>{
+    Recipe.findOneAndDelete({_id: recipeId},async (err,recipeFound)=>{
         if(err){
             message = 'An error occurred during database query';
             return res.status(500).send({message:message});

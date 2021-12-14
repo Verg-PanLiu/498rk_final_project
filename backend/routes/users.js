@@ -69,7 +69,8 @@ router.get('/:UserId', async function (req, res) {
     const userId = req.params.UserId;
     let status = null, message = '', data = null;
     try{
-        data = await User.findOne({ UserId: userId });
+        // data = await User.findOne({ UserId: userId });
+        data = await User.findOne({ _id: userId });
         status = 200;
         message = 'OK';
         if (data == null){
