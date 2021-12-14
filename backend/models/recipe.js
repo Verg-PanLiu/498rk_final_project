@@ -4,7 +4,7 @@ const RecipeSchema = new mongoose.Schema({
   RecipeID: { type: Number, required: true, unique: true, integer: true },
   RecipeName: { type: String, required: true },
   Description: { type: String, default: "" },
-  recipeProcedure: { type: String, required: true },
+  recipeProcedure: { type: [String], required: true },
   Score : { type: Number, required: true },
   UserId: { type: Number, required: true },
   Ingredient: { type: [String], required: true },
