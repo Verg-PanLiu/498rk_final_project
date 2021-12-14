@@ -5,11 +5,11 @@ const RecipesList = ({ recipeList = [] }) => {
   return (
     <div className="recipes-list">
       {recipeList.map(recipe => {
-        const { RecipeID, RecipeName, PhotoURL, prepTime, cookTime } = recipe
+        const { _id, RecipeName, PhotoURL, prepTime, cookTime } = recipe
         // const slug = slugify(RecipeName, { lower: true })
 
         return (
-          <Link key={RecipeID} to={`/${RecipeID}`} className="recipe">
+          <Link key={_id} to={`/${_id}`} className="recipe">
             <img
                 src= {PhotoURL}
                 width="290"

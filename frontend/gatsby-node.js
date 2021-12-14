@@ -28,10 +28,10 @@ exports.createPages = async ({ actions }) => {
 
     recipeList.forEach(recipe =>{
           createPage({
-            path: `/${recipe.RecipeID}`,
+            path: `/${recipe._id}`,
             component: path.resolve(`src/templates/recipe-template.js`),
             context: {
-              RecipeID: recipe.RecipeID,
+              RecipeID: recipe._id,
             },
           })
     })
