@@ -19,7 +19,8 @@ def main(csv_path):
         # headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/plain"}
         headers = {"Content-type": "application/json", "Accept": "text/plain"}
         params = {'RecipeID': int(row['RecipeID']), 'RecipeName': row['RecipeName'], 'Description': row['Description'],
-                  'recipeProcedure': row['recipeProcedure'], 'PhotoURL': row['PhotoURL'], 'Score': row['Score'],
+                  'recipeProcedure': row['recipeProcedure'].strip().split(';'),
+                  'PhotoURL': row['PhotoURL'], 'Score': row['Score'],
                   'UserId': int(row['UserId']),
                   'Ingredient': row['Ingredient'].strip().split(';'),
                   'Category': row['Category'].strip().split(';'),
