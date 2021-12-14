@@ -30,7 +30,7 @@ const Signup = ({ data }) => {
                 <input type="text" name="password2" id="password2" className="form-input"/>
               </div>
               <div className="form-row">
-                <label className="form-label">Email (Optional)</label>
+                <label className="form-label">Email</label>
                 <input type="text" name="email" id="email" className="form-input"/>
               </div>
               <button id="signup" type="submit" className="btn btn-block">

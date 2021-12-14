@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
     "mongoose": "^6.1.1",
     "nodemon": "^2.0.15"
@@ -13,7 +14,8 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongoose": "^5.4.18",
-    "nodemon": "^1.11.0"},
+    "nodemon": "^1.11.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

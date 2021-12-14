@@ -2,8 +2,35 @@ import React, { useState } from "react"
 import { Link } from "gatsby"
 import { FiAlignJustify } from "react-icons/fi"
 import logo from "../assets/images/logo3.png"
+
+import { useCookies } from "react-cookie";
+
 const Navbar = () => {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(false);
+  const [cookies, setCookie] = useCookies(["login"]);
+  let login = cookies.hasLogin === "true" ? true : false;
+
+  const logoff = () => {
+    setCookie("hasLogin", "false", {path: "/"});
+    window.location.reload();
+  };
+
+  let content = <div className="nav-link contact-link">
+                  <Link to="/signup" className="btn" onClick={() => setShow(false)}>
+                    Sign Up
+                  </Link>
+                  <Link to="/login" className="btn" onClick={() => setShow(false)}>
+                    Log In
+                  </Link>
+                </div>;
+  if (login) {
+    content = <div className="nav-link contact-link">
+                <Link to="/" className="btn" onClick={() => logoff()}>
+                  Log Off
+                </Link>
+              </div>
+  }
+
   return (
     <nav className="navbar">
       <div className="nav-center">
@@ -41,14 +68,7 @@ const Navbar = () => {
             tags
           </Link>
 
-          <div className="nav-link contact-link">
-            <Link to="/signup" className="btn" onClick={() => setShow(false)}>
-              Sign Up
-            </Link>
-            <Link to="/login" className="btn" onClick={() => setShow(false)}>
-              Log In
-            </Link>
-          </div>
+          {content}
         </div>
       </div>
     </nav>

@@ -42,6 +42,28 @@ router.post('/', async function (req, res) {
     res.json(resObj);
 });
 
+router.post('/login', async function (req, res) {
+    const userName = req.body.userName;
+    const userPassword = req.body.userPassword;
+
+    User.findOne({UserName: userName, UserPassword: userPassword}).exec((err, user) => {
+        if (err) {
+            // login failure
+            console.log("Failure");
+        } else if (!user) {
+            res.status(500);
+            res.json({
+                login: false
+            });
+        } else {
+            res.status(200);
+            res.json({
+                login: true
+            });
+        }
+    })
+});
+
 router.get('/:UserId', async function (req, res) {
     // return res.send({router:"users", route:req.route});
     const userId = req.params.UserId;
