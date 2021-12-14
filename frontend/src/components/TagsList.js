@@ -2,8 +2,8 @@ import React from "react"
 import setupTags from "../utils/setupTags"
 import { Link } from "gatsby"
 import slugify from "slugify"
-const TagsList = ({ recipes }) => {
-  const newTags = setupTags(recipes)
+const TagsList = ({ recipeList }) => {
+  const newTags = setupTags(recipeList)
   return (
     <div className="tag-container">
       <h4>recipes</h4>

@@ -1,8 +1,8 @@
-const setupTags = recipes => {
+const setupTags = recipeList => {
   const allTags = {}
 
-  recipes.forEach(recipe => {
-    recipe.content.tags.forEach(tag => {
+  recipeList.forEach(recipe => {
+    recipe.Category.forEach(tag => {
       if (allTags[tag]) {
         allTags[tag] = allTags[tag] + 1
       } else {
