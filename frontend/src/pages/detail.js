@@ -37,8 +37,6 @@ const Detail = (props) => {
         console.log(error);
       });
     };
-
-    console.log(userID === recipe.UserId);
   
     return (
   
