@@ -6,12 +6,16 @@ import slugify from "slugify";
 import {BsClock, BsClockHistory, BsPeople} from "react-icons/bs";
 
 import axios from 'axios'
+import { useCookies } from "react-cookie";
 
 const Detail = (props) => {
     const queryString = props.location.search;
     let RecipeID = queryString.replace("?", "").replace("key=", "");
     let endpoint = "http://localhost:4000/api/recipes/".concat(RecipeID);
     const [recipe, setRecipe] = useState([]);
+
+    const [cookies, setCookie] = useCookies(["login"]);
+    let login = cookies.hasLogin === "true" ? true : false;
 
     useEffect(() => {
       fetch(endpoint)
@@ -109,12 +113,12 @@ const Detail = (props) => {
                       </p>
                     )
                   })}
+                  {login && <button id="delete" onClick={handleDelete}>
+                  Delete
+                </button>}
                 </div>
               </article>
             </section>
-            <button id="delete" onClick={handleDelete}>
-              Delete
-            </button>
           </div>
         </main>
       </Layout>
