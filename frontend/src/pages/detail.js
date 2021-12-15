@@ -114,7 +114,7 @@ const Detail = (props) => {
                     )
                   })}
                   {login && <button id="delete" onClick={handleDelete}>
-                  Delete
+                  Delete Recipe
                 </button>}
                 </div>
               </article>
