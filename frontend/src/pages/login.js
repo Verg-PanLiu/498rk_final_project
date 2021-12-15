@@ -18,11 +18,13 @@ const Login = ({ data }) => {
     let json = {userName: name, userPassword: password};
     axios.post("http://localhost:4000/api/users/login", json)
     .then((res) => {
+      setCookie("userID", res.data.userID, {path: "/"});
       setCookie("hasLogin", "true", {path: "/"});
       window.location = "/";
     })
     .catch((error) => {
       console.log(error);
+      setCookie("userID", "", {path: "/"});
       setCookie("hasLogin", "false", {path: "/"});
       setInvalid(true);
     })

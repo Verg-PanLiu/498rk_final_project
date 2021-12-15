@@ -58,7 +58,8 @@ router.post('/login', async function (req, res) {
         } else {
             res.status(200);
             res.json({
-                login: true
+                login: true,
+                userID: user._id
             });
         }
     })

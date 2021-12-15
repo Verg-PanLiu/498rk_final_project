@@ -23,7 +23,6 @@ const Signup = ({ data }) => {
     }
     
     let json = {
-      UserId: 100,
       UserName: name,
       UserPassword: password,
       Gender: gender,
@@ -31,7 +30,6 @@ const Signup = ({ data }) => {
     };
     axios.post("http://localhost:4000/api/users/", json)
     .then((res) => {
-      console.log(res);
       window.location = "/login";
     })
     .catch((error) => {

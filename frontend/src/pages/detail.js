@@ -14,7 +14,8 @@ const Detail = (props) => {
     let endpoint = "http://localhost:4000/api/recipes/".concat(RecipeID);
     const [recipe, setRecipe] = useState([]);
 
-    const [cookies, setCookie] = useCookies(["login"]);
+    const [cookies, setCookie] = useCookies();
+    let userID = cookies.userID;
     let login = cookies.hasLogin === "true" ? true : false;
 
     useEffect(() => {
@@ -36,6 +37,8 @@ const Detail = (props) => {
         console.log(error);
       });
     };
+
+    console.log(userID === recipe.UserId);
   
     return (
   
@@ -113,7 +116,7 @@ const Detail = (props) => {
                       </p>
                     )
                   })}
-                  {login && <button id="delete" onClick={handleDelete}>
+                  {login && recipe.UserId === userID && <button id="delete" onClick={handleDelete}>
                   Delete Recipe
                 </button>}
                 </div>

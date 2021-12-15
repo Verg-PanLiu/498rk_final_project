@@ -3,6 +3,7 @@ import Layout from "../components/Layout"
 import { graphql, Link } from "gatsby"
 import { GatsbyImage, getImage, StaticImage} from "gatsby-plugin-image"
 import { BsClockHistory, BsClock, BsPeople } from "react-icons/bs"
+import { useCookies } from "react-cookie";
 
 import SEO from "../components/SEO"
 import axios from "axios";
@@ -18,6 +19,7 @@ const Addrecipe = () => {
   const [cookTime, setCookTime] = useState(0);
   const [score, setScore] = useState(0);
   const [invalid, setInvalid] = useState(false);
+  const [cookies, setCookie] = useCookies();
 
   const handleChange = (e, index, lst, setLst) => {
     const {name, value} = e.target;
@@ -80,13 +82,12 @@ const Addrecipe = () => {
     event.preventDefault();
 
     let json = {
-      RecipeID: 1000,
       RecipeName: title,
       Description: description,
       PhotoURL: photo,
       recipeProcedure: instructionList,
       Score: score,
-      UserId: 100,
+      UserId: cookies.userID,
       Ingredient: ingredientList,
       Category: categoryList,
       cookTime: cookTime,
