@@ -3,14 +3,14 @@ import TagsList from "./TagsList"
 import RecipesList from "./RecipesList"
 
 const AllRecipes = () => {
-  let endpoint = "http://localhost:4000/api/recipes"
+  let endpoint = "https://tiramisu-backend.herokuapp.com/api/recipes"
   const [recipeList, setRecipeList] = useState([])
 
   useEffect(() => {
     fetch(endpoint)
       .then(response => response.json()) // parse JSON from request
       .then(resultData => {
-          setRecipeList(resultData.data)
+        setRecipeList(resultData.data)
       })
   }, [])
 

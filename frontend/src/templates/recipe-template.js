@@ -1,53 +1,57 @@
-import React, {useEffect, useState} from "react"
-import {graphql, Link} from "gatsby"
+import React, { useEffect, useState } from "react"
+import { graphql, Link } from "gatsby"
 import RecipesList from "../components/RecipesList"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
-import {GatsbyImage} from "gatsby-plugin-image";
-import {BsClock, BsClockHistory, BsPeople} from "react-icons/bs";
-import slugify from "slugify";
+import { GatsbyImage } from "gatsby-plugin-image"
+import { BsClock, BsClockHistory, BsPeople } from "react-icons/bs"
+import slugify from "slugify"
 
-import axios from 'axios'
+import axios from "axios"
 
 const RecipeTemplate = ({ pageContext }) => {
-
-  let endpoint = "http://localhost:4000/api/recipes/".concat(pageContext.RecipeID)
+  let endpoint = "https://tiramisu-backend.herokuapp.com/api/recipes/".concat(
+    pageContext.RecipeID
+  )
   const [recipe, setRecipe] = useState([])
 
   useEffect(() => {
     fetch(endpoint)
       .then(response => response.json()) // parse JSON from request
       .then(resultData => {
-          setRecipe(resultData.data)
+        setRecipe(resultData.data)
       })
   }, [])
 
-  const handleDelete = (event) => {
-    event.preventDefault();
+  const handleDelete = event => {
+    event.preventDefault()
 
-    axios.delete(endpoint)
-    .then((res) => {
-      window.location = "/";
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  };
+    axios
+      .delete(endpoint)
+      .then(res => {
+        window.location = "/"
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   return (
-
-  <Layout>
+    <Layout>
       <SEO title={recipe.RecipeName} description={recipe.Description} />
       <main className="page">
         <div className="recipe-page">
-
           <section className="recipe-hero">
             <img
-                src= {recipe.PhotoURL}
-                width="400"
-                height= "400"
-                style={{border: "3px solid #9db1b7", borderRadius: "10px", objectFit: "cover"}}
-                alt={recipe.RecipeName}
+              src={recipe.PhotoURL}
+              width="400"
+              height="400"
+              style={{
+                border: "3px solid #9db1b7",
+                borderRadius: "10px",
+                objectFit: "cover",
+              }}
+              alt={recipe.RecipeName}
             />
             <article className="recipe-info">
               <h3>{recipe.RecipeName}</h3>
