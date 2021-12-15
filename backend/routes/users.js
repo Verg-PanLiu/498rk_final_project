@@ -14,29 +14,35 @@ router.post('/', async function (req, res) {
     console.log("user POST params:", params);
     // console.log("json: " + JSON.parse(params));
     let message, data = null;
-    if(params.UserId == null){
-        res.status(400);
-        message = 'Missing userId';
-    }else{
-        const newUser = new User(params);
-        await newUser.save();
-        res.status(201);
-        message = 'New user created';
-        console.log("Created user: ", newUser)
-        data = newUser.toJSON();
-        // update pending task documents
-        // const tasks = newUser.get('pendingTasks');
-        // // console.log(tasks);
-        // tasks.forEach((task)=>{
-        //     Task.findOneAndUpdate({_id: task}, { $set: {assignedUser: newUser.get('_id'), assignedUserName: newUser.get('name')}},
-        //         {},(err, result)=>{
-        //         if(err){
-        //             res.status(500).json({message: 'An error occurred during database query', err:err});
-        //         }
-        //     });
-        // });
-
-    }
+    // if(params.UserId == null){
+    //     res.status(400);
+    //     message = 'Missing userId';
+    // }else{
+    //     const newUser = new User(params);
+    //     await newUser.save();
+    //     res.status(201);
+    //     message = 'New user created';
+    //     console.log("Created user: ", newUser)
+    //     data = newUser.toJSON();
+    //     // update pending task documents
+    //     // const tasks = newUser.get('pendingTasks');
+    //     // // console.log(tasks);
+    //     // tasks.forEach((task)=>{
+    //     //     Task.findOneAndUpdate({_id: task}, { $set: {assignedUser: newUser.get('_id'), assignedUserName: newUser.get('name')}},
+    //     //         {},(err, result)=>{
+    //     //         if(err){
+    //     //             res.status(500).json({message: 'An error occurred during database query', err:err});
+    //     //         }
+    //     //     });
+    //     // });
+    //
+    // }
+    const newUser = new User(params);
+    await newUser.save();
+    res.status(201);
+    message = 'New user created';
+    console.log("Created user: ", newUser)
+    data = newUser.toJSON();
     let resObj = {message: message}; if(data){resObj.data = data};
 
     res.json(resObj);
