@@ -1,7 +1,5 @@
 import React, {useState} from "react"
 import Layout from "../components/Layout"
-import { graphql } from "gatsby"
-import RecipesList from "../components/RecipesList"
 import SEO from "../components/SEO"
 
 import axios from 'axios'
@@ -50,11 +48,11 @@ const Login = ({ data }) => {
                 {errMsg}
               </div>
               <div className="form-row">
-                <label className="form-label">User Name</label>
+                <label className="form-label" htmlFor="name">User Name</label>
                 <input type="text" name="name" id="name_login" value={name} onChange={e => setName(e.target.value)} className="form-input"/>
               </div>
               <div className="form-row">
-                <label className="form-label">User Password</label>
+                <label className="form-label" htmlfor="password">User Password</label>
                 <input type="password" name="password" id="password_login" value={password} onChange={e => setPassword(e.target.value)} className="form-input"/>
               </div>
               <button id="login" type="submit" className="btn btn-block">

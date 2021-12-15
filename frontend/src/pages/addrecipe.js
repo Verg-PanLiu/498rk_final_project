@@ -16,7 +16,7 @@ const Addrecipe = () => {
   const [title, setTitle] = useState("");
   const [prepTime, setPrepTime] = useState(0);
   const [cookTime, setCookTime] = useState(0);
-  const [serving, setServing] = useState(0);
+  const [score, setScore] = useState(0);
   const [invalid, setInvalid] = useState(false);
 
   const handleChange = (e, index, lst, setLst) => {
@@ -85,7 +85,7 @@ const Addrecipe = () => {
       Description: description,
       PhotoURL: photo,
       recipeProcedure: instructionList,
-      Score: 100,
+      Score: score,
       UserId: 100,
       Ingredient: ingredientList,
       Category: categoryList,
@@ -134,8 +134,8 @@ const Addrecipe = () => {
                 </article>
                 <article>
                   <BsPeople />
-                  <h5>serving</h5>
-                  <input type="number" name="serving" value={serving} onChange={e => setServing(e.target.value)} required/>
+                  <h5>Score</h5>
+                  <input type="number" name="score" value={score} onChange={e => setScore(e.target.value)} required/>
                 </article>
               </div>
               {/* tags */}

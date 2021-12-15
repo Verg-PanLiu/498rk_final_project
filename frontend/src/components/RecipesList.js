@@ -9,7 +9,7 @@ const RecipesList = ({ recipeList = [] }) => {
         // const slug = slugify(RecipeName, { lower: true })
 
         return (
-          <Link key={_id} to={`/${_id}`} className="recipe">
+          <Link key={_id} to={`/detail?key=${_id}`} className="recipe">
             <img
                 src= {PhotoURL}
                 width="290"
