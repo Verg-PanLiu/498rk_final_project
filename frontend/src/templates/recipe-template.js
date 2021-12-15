@@ -7,6 +7,8 @@ import {GatsbyImage} from "gatsby-plugin-image";
 import {BsClock, BsClockHistory, BsPeople} from "react-icons/bs";
 import slugify from "slugify";
 
+import axios from 'axios'
+
 const RecipeTemplate = ({ pageContext }) => {
 
   let endpoint = "http://localhost:4000/api/recipes/".concat(pageContext.RecipeID)
@@ -19,6 +21,18 @@ const RecipeTemplate = ({ pageContext }) => {
           setRecipe(resultData.data)
       })
   }, [])
+
+  const handleDelete = (event) => {
+    event.preventDefault();
+
+    axios.delete(endpoint)
+    .then((res) => {
+      window.location = "/";
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
 
   return (
 
@@ -99,6 +113,9 @@ const RecipeTemplate = ({ pageContext }) => {
               </div>
             </article>
           </section>
+          <button id="delete" onClick={handleDelete}>
+            Delete
+          </button>
         </div>
       </main>
     </Layout>
