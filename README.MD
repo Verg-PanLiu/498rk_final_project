@@ -5,18 +5,18 @@ Member netIDs:xirany2, yilyu3, hongyil7, panl3
 
 # To run backend:
 
-cd backend
+1. cd backend
 
-npm install
+2. npm install
 
-npm start
+3. npm start
 
 # To run frontend:
 
-cd frontend
+1. cd frontend
 
-npm install
+2. npm install
 
-npm start
+3. npm start
 
 Deployed on https://relaxed-wiles-9b73a4.netlify.app/
