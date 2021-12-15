@@ -9,7 +9,7 @@ import slugify from "slugify";
 
 const RecipeTemplate = ({ pageContext }) => {
 
-  let endpoint = "http://localhost:4000/api/recipes/".concat(pageContext._id)
+  let endpoint = "http://localhost:4000/api/recipes/".concat(pageContext.RecipeID)
   const [recipe, setRecipe] = useState([])
 
   useEffect(() => {
